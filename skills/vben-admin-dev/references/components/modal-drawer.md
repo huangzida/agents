@@ -20,6 +20,60 @@
 | 复杂表单 | 按业务模块拆分为多个子表单 |
 | 编辑详情 | 基本信息 + 物模型 等模块拆分 |
 
+### 配置统一原则
+✅ 最佳实践 ：所有配置参数统一在 useVbenModal / useVbenForm 的参数中设置，模板保持干净。
+
+```typescript
+<script setup lang="ts">
+import { useVbenModal } from '@vben/
+common-ui';
+import { useVbenForm } from '#/adapter/
+form';
+
+const [Form, formApi] = useVbenForm({
+  handleSubmit: onSubmit,
+  layout: 'vertical',
+  schema: [...],
+  showDefaultActions: false,
+});
+
+const [Modal, modalApi] = useVbenModal({
+  fullscreenButton: true,
+  draggable: true,
+  title: modalTitle.value,
+  onConfirm() { onSubmit(); },
+  onOpenChange(isOpen: boolean) { ... },
+});
+</script>
+
+<template>
+  <Modal class="sm:w-[600px]">
+    <Form />
+  </Modal>
+</template>
+```
+❌ 错误写法 ：配置分散在脚本和模板中，模板中的 props 会覆盖脚本中的配置。
+
+```typescript
+<script setup lang="ts">
+const [Modal, modalApi] = useVbenModal({
+  fullscreenButton: true,  // 这里设置了 
+  true
+  ...
+});
+</script>
+
+<template>
+  <Modal
+    :fullscreen-button="false"  // 这里又设
+    置为 false，会覆盖上面的配置！
+  >
+    ...
+  </Modal>
+</template>
+```
+关键点 ：模板中的 props 会覆盖 useVbenModal / useVbenForm 内部的默认值。如果想在脚本中统一管理配置，模板中就不要重复设置相同的 prop。
+
 ### ❌ 常见错误
 
 #### 错误1：在子组件中使用 useVbenDrawer/useVbenModal
