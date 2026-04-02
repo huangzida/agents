@@ -134,6 +134,134 @@ Vben Admin 使用 `.dark` 类选择器实现深色模式，**不是** `prefers-c
 </div>
 ```
 
+## Tailwind-First 原则
+
+Vben Admin 遵循 **Tailwind-First** 原则，优先使用 Tailwind CSS 类，避免使用 `<style scoped>`。
+
+### ✅ 正确做法
+
+```vue
+<template>
+  <!-- 布局和间距用 Tailwind -->
+  <div class="flex items-center justify-between gap-4 p-5">
+    <!-- 颜色和状态用语义类 -->
+    <div class="bg-card border border-border rounded-xl p-4">
+      <button class="h-10 px-4 font-semibold text-warning border border-warning/50 rounded-xl hover:bg-warning/10 transition-colors">
+        按钮
+      </button>
+    </div>
+  </div>
+</template>
+```
+
+### ❌ 错误做法：大量自定义 CSS
+
+```vue
+<!-- ❌ 不推荐：把 Tailwind 能实现的效果写成 CSS -->
+<template>
+  <div class="custom-card">
+    <button class="custom-button">按钮</button>
+  </div>
+</template>
+
+<style scoped>
+.custom-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.custom-button {
+  height: 2.5rem;
+  padding: 0 1rem;
+  font-weight: 600;
+  color: var(--color-warning);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.custom-button:hover {
+  background-color: rgba(245, 158, 11, 0.1);
+}
+</style>
+```
+
+### 何时使用 `<style scoped>`
+
+只有 Tailwind 无法实现时才使用：
+
+| 场景 | 解决方案 |
+|------|----------|
+| 动态 `min-height`（如图表容器） | ✅ 可用 `min-h-[400px]` Tailwind |
+| CSS 动画关键帧 | ❌ 需要 `<style>` |
+| 伪元素样式 | ⚠️ 可用 Tailwind `before:`/`after:` |
+| CSS 变量注入 | ⚠️ 可用 `[--variable:value]` |
+| `:deep()` 覆盖第三方组件样式 | ❌ 需要 `<style scoped>` 中的 `:deep()` |
+
+### 何时使用 `:deep()`
+
+需要覆盖第三方组件（如 ant-design-vue、element-plus）内部样式时使用：
+
+```vue
+<!-- ✅ 正确：使用 :deep() 覆盖第三方组件内部样式 -->
+<style scoped>
+:deep(.ant-tree-node-content-wrapper) {
+  min-height: 36px;
+  padding: 6px 10px;
+}
+
+:deep(.ant-tree-switcher) {
+  display: flex;
+  align-items: center;
+  width: 4px;
+}
+</style>
+
+<!-- ❌ 错误：为普通元素写自定义 CSS 类 -->
+<style scoped>
+.my-custom-div {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 12px;
+}
+</style>
+
+<!-- ✅ 正确：用 Tailwind 类替代 -->
+<div class="flex items-center p-2 rounded-xl">...</div>
+```
+
+### :deep() 使用原则
+
+| 场景 | 是否使用 :deep() |
+|------|------------------|
+| 覆盖 ant-design-vue / element-plus 等组件内部样式 | ✅ 需要 |
+| 覆盖第三方 UI 库的样式 | ✅ 需要 |
+| 自定义组件样式 | ❌ 用 Tailwind 类 |
+| 页面布局、间距、颜色 | ❌ 用 Tailwind 类 |
+| 通用样式（flex、gap、padding 等） | ❌ 用 Tailwind 类 |
+
+### 迁移指南
+
+将现有 `<style scoped>` 迁移到 Tailwind：
+
+```vue
+<!-- 之前 -->
+<div class="stat-card">...</div>
+
+<style scoped>
+.stat-card {
+  @apply bg-card border border-border;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 3%);
+}
+</style>
+
+<!-- 之后 -->
+<div class="stat-card bg-card border border-border shadow-[0_1px_2px_0_rgb(0_0_0_/_3%)]">...</div>
+```
+
 ## 最佳实践
 
 ### ✅ 推荐：使用语义颜色类
