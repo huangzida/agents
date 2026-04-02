@@ -283,40 +283,45 @@ import { z } from '#/adapter/form';
 | 弹窗表单 | `examples/modal/form-modal-demo.vue` |
 
 ### Textarea 字数统计（showCount）最佳实践
-当 Textarea 组件启用 showCount: true 时，字数统计可能因父容器 overflow: hidden 而显示异常。
- ✅ 正确写法
-使用 formItemClass 定义类名，配合 CSS 修复显示问题：
+
+当 Textarea 组件启用 `showCount: true` 时，字数统计可能因父容器 `overflow: hidden` 而显示异常。
+
+#### ✅ 正确写法
+
+使用 `formItemClass` 定义类名，配合 CSS 修复显示问题：
 
 ```typescript
 {
-  formItemClass: 'textarea-form-item',
-  component: 'Textarea',
-  componentProps: {
-    maxlength: 200,
-    showCount: true,
-    rows: 3,
-  },
-  fieldName: 'description',
-  label: '说明',
+  formItemClass: 'textarea-form-item',
+  component: 'Textarea',
+  componentProps: {
+    maxlength: 200,
+    showCount: true,
+    rows: 3,
+  },
+  fieldName: 'description',
+  label: '说明',
 }
 ```
 
 ```typescript
-<style scoped>
-:deep(.textarea-form-item > div) {
-  overflow: visible;
+<style scoped>
+:deep(.textarea-form-item > div) {
+  overflow: visible;
 }
 </style>
-``` 
+```
 
-❌ 错误写法
-直接在 wrapperClass 上设置样式（容易被覆盖，且作用域不精确）：
+#### ❌ 错误写法
+
+直接在 `wrapperClass` 上设置样式（容易被覆盖，且作用域不精确）：
 
 ```typescript
 {
-  wrapperClass: 'custom-wrapper',
-  component: 'Textarea',
-  componentProps: { showCount: true },
+  wrapperClass: 'custom-wrapper',
+  component: 'Textarea',
+  componentProps: { showCount: true },
 }
 ```
-注意 ：命名应使用 formItemClass 而非 wrapperClass ，因为 showCount 的后缀元素渲染在 formItem 内。
+
+> 注意：命名应使用 `formItemClass` 而非 `wrapperClass`，因为 showCount 的后缀元素渲染在 formItem 内。

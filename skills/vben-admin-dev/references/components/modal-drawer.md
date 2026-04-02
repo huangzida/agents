@@ -24,59 +24,55 @@
 ✅ 最佳实践 ：所有配置参数统一在 useVbenModal / useVbenForm 的参数中设置，模板保持干净。
 
 ```typescript
-<script setup lang="ts">
-import { useVbenModal } from '@vben/
-common-ui';
-import { useVbenForm } from '#/adapter/
-form';
+<script setup lang="ts">
+import { useVbenModal } from '@vben/common-ui';
+import { useVbenForm } from '#/adapter/form';
 
-const [Form, formApi] = useVbenForm({
-  handleSubmit: onSubmit,
-  layout: 'vertical',
-  schema: [...],
-  showDefaultActions: false,
+const [Form, formApi] = useVbenForm({
+  handleSubmit: onSubmit,
+  layout: 'vertical',
+  schema: [...],
+  showDefaultActions: false,
 });
 
-const [Modal, modalApi] = useVbenModal({
-  fullscreenButton: true,
-  draggable: true,
-  title: modalTitle.value,
-  onConfirm() { onSubmit(); },
-  onOpenChange(isOpen: boolean) { ... },
+const [Modal, modalApi] = useVbenModal({
+  fullscreenButton: true,
+  draggable: true,
+  title: modalTitle.value,
+  onConfirm() { onSubmit(); },
+  onOpenChange(isOpen: boolean) { ... },
 });
 </script>
 
 <template>
-  <Modal class="sm:w-[600px]">
+  <Modal>
     <Form />
   </Modal>
 </template>
 ```
-❌ 错误写法 ：配置分散在脚本和模板中，模板中的 props 会覆盖脚本中的配置。
+❌ 错误写法：配置分散在脚本和模板中，模板中的 props 会覆盖脚本中的配置。
 
 ```typescript
-<script setup lang="ts">
-const [Modal, modalApi] = useVbenModal({
-  fullscreenButton: true,  // 这里设置了 
-  true
-  ...
+<script setup lang="ts">
+const [Modal, modalApi] = useVbenModal({
+  fullscreenButton: true, // 这里设置了 true
+  ...
 });
 </script>
 
 <template>
-  <Modal
-    :fullscreen-button="false"  // 这里又设
-    置为 false，会覆盖上面的配置！
-  >
-    ...
-  </Modal>
+  <Modal
+    :fullscreen-button="false" <!-- 这里又设置为 false，会覆盖上面的配置！ -->
+  >
+    ...
+  </Modal>
 </template>
 ```
 关键点 ：模板中的 props 会覆盖 useVbenModal / useVbenForm 内部的默认值。如果想在脚本中统一管理配置，模板中就不要重复设置相同的 prop。
 
-### ❌ 常见错误
+## ❌ 常见错误
 
-#### 错误1：在子组件中使用 useVbenDrawer/useVbenModal
+### 错误1：在子组件中使用 useVbenDrawer/useVbenModal
 
 **❌ 错误写法**：子组件直接使用 `useVbenDrawer`
 
@@ -116,7 +112,7 @@ defineExpose({
 </template>
 ```
 
-#### 错误2：直接在 template 中导入原生组件
+### 错误2：直接在 template 中导入原生组件
 
 **❌ 错误写法**：直接导入原生组件
 
@@ -135,7 +131,7 @@ import { Button, Input } from 'antdv-next';
 - 对于 Vben 封装的表单/表格等，使用 `useVbenForm`、`useVbenVxeGrid` 的 schema 定义
 - 对于按钮等简单组件，可以直接导入 `import { Button } from 'antdv-next'`，但需确保组件已在适配器中注册
 
-#### 错误3：父子组件状态管理混乱
+### 错误3：父子组件状态管理混乱
 
 **❌ 错误写法**：通过 reactive 状态传递
 
