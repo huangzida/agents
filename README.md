@@ -3,7 +3,7 @@
 [English](README.md) | [中文](README_zh.md)
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Skills Count](https://img.shields.io/badge/skills-75-green.svg)](#skills-overview)
+[![Skills Count](https://img.shields.io/badge/skills-76-green.svg)](#skills-overview)
 [![Last Updated](https://img.shields.io/badge/last%20updated-2026--03--29-orange.svg)](#)
 
 A comprehensive collection of AI coding skills for enhancing AI assistant capabilities in software development tasks. These skills are designed to work with AI coding agents like Claude Code, Codex, and similar tools.
@@ -43,10 +43,10 @@ This repository contains a curated collection of skills that extend AI coding as
 | **Security** | 1 | Security hardening |
 | **Git/Version Control** | 2 | Git workflow management |
 | **DevOps** | 1 | CI/CD and automation |
-| **AI Collaboration** | 8 | Brainstorming, planning, multi-agent |
+| **AI Collaboration** | 9 | Brainstorming, planning, multi-agent, skill management |
 | **Engineering Tools** | 11 | Build tools, package managers, frameworks |
 | **Methodology** | 6 | Development principles and practices |
-| **Total** | **75** | Comprehensive development coverage |
+| **Total** | **76** | Comprehensive development coverage |
 
 ## 🚀 Getting Started
 
@@ -233,6 +233,7 @@ Each skill includes detailed documentation in its `SKILL.md` file.
 |-------|-------------|
 | **[brainstorming](skills/brainstorming)** | Creative design process with visual companion support for UI/UX projects. |
 | **[executing-plans](skills/executing-plans)** | Implementation plan execution with review checkpoints. |
+| **[skillshare](skills/skillshare)** | Manage and sync AI CLI skills across 50+ tools from a single source. |
 | **[subagent-driven-development](skills/subagent-driven-development)** | Multi-agent development workflow with spec review and code quality checks. |
 | **[dispatching-parallel-agents](skills/dispatching-parallel-agents)** | Parallel task execution with independent agents. |
 | **[find-skills](skills/find-skills)** | Discovering and installing available skills. |
@@ -261,11 +262,11 @@ Code Review:          █████░░░░░░░░░░░░░░�
 Security:             ██░░░░░░░░░░░░░░░░░░░░░░░  1 skill
 Git/Version Control:  ████░░░░░░░░░░░░░░░░░░░░░  2 skills
 DevOps:               ██░░░░░░░░░░░░░░░░░░░░░░░  1 skill
-AI Collaboration:     ██████████████░░░░░░░░░░░░  8 skills
+AI Collaboration:     ███████████████░░░░░░░░░░░  9 skills
 Engineering Tools:    █████████████████░░░░░░░░ 11 skills
 Methodology:          ████████████░░░░░░░░░░░░░░  6 skills
 ───────────────────────────────────────────────────────────
-Total:               ████████████████████████ 75 skills
+Total:               ████████████████████████ 76 skills
 ```
 
 ## 🔍 Skill Structure

@@ -3,7 +3,7 @@
 [English](README.md) | [中文](README_zh.md)
 
 [![许可协议](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![技能数量](https://img.shields.io/badge/skills-75-green.svg)](#技能总览)
+[![技能数量](https://img.shields.io/badge/skills-76-green.svg)](#技能总览)
 [![最后更新](https://img.shields.io/badge/last%20updated-2026--03--29-orange.svg)](#)
 
 一个全面的AI编码技能集合，旨在增强AI编程助手在软件开发任务中的能力。这些技能旨在与Claude Code、Codex等AI编程代理配合使用。
@@ -43,10 +43,10 @@
 | **安全** | 1 | 安全加固 |
 | **Git/版本控制** | 2 | Git工作流管理 |
 | **DevOps** | 1 | CI/CD和自动化 |
-| **AI协作** | 8 | 头脑风暴、规划、多代理 |
+| **AI协作** | 9 | 头脑风暴、规划、多代理、技能管理 |
 | **工程工具** | 11 | 构建工具、包管理器、框架 |
 | **方法论** | 6 | 开发原则和实践 |
-| **总计** | **75** | 全面的开发覆盖 |
+| **总计** | **76** | 全面的开发覆盖 |
 
 ## 🚀 快速开始
 
@@ -233,6 +233,7 @@ cp -r skills/* ~/.agents/skills/
 |-------|-------------|
 | **[brainstorming](skills/brainstorming)** | 创意设计流程，支持UI/UX项目的可视化配套。 |
 | **[executing-plans](skills/executing-plans)** | 带审查检查点的实施计划执行。 |
+| **[skillshare](skills/skillshare)** | 从单一来源管理和同步50+工具的AI CLI技能。 |
 | **[subagent-driven-development](skills/subagent-driven-development)** | 多代理开发工作流，包含规范审查和代码质量检查。 |
 | **[dispatching-parallel-agents](skills/dispatching-parallel-agents)** | 使用独立代理的并行任务执行。 |
 | **[find-skills](skills/find-skills)** | 发现和安装可用技能。 |
@@ -261,11 +262,11 @@ cp -r skills/* ~/.agents/skills/
 安全:           ██░░░░░░░░░░░░░░░░░░░░░░░  1个技能
 Git/版本控制:   ████░░░░░░░░░░░░░░░░░░░░░  2个技能
 DevOps:         ██░░░░░░░░░░░░░░░░░░░░░░░  1个技能
-AI协作:         ██████████████░░░░░░░░░░░  8个技能
+AI协作:         ███████████████░░░░░░░░░░░  9个技能
 工程工具:       █████████████████░░░░░░░ 11个技能
 方法论:         ████████████░░░░░░░░░░░░░  6个技能
 ───────────────────────────────────────────────────────────
-总计:           ████████████████████████ 75个技能
+总计:           ████████████████████████ 76个技能
 ```
 
 ## 🔍 技能结构
