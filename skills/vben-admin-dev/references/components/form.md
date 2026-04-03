@@ -125,23 +125,47 @@ defineExpose({ open });
 
 ## ❌ 常见错误
 
-### 错误1：在 template 中使用未注册的组件
+### 错误1：在 template 中使用未注册的组件（表单字段）
 
 ```vue
-<!-- ❌ 错误 -->
+<!-- ❌ 错误：在 template 中直接使用表单组件 -->
 <template>
-  <Button @click="handleClick">提交</Button>
   <Input v-model="value" />
 </template>
 
 <script setup>
-import { Button, Input } from 'antdv-next';
+import { Input } from 'antdv-next';
 </script>
 ```
 
-**正确做法**：在 schema 中定义组件，或使用其他方式。
+**正确做法**：在 schema 中定义组件。
 
-### 错误2：组件命名不规范
+### 错误2：使用原生 HTML 按钮或 antdv-next 的 Button
+
+```vue
+<!-- ❌ 错误：使用原生 button 元素 -->
+<button type="button" class="ant-btn" @click="handleReset">重置</button>
+
+<!-- ❌ 错误：使用 antdv-next 的 Button -->
+import { Button } from 'antdv-next';
+<Button @click="handleSubmit">提交</Button>
+```
+
+**✅ 正确做法：使用 @vben/common-ui 的 VbenButton 组件**
+
+```vue
+<!-- ✅ 正确：使用 @vben/common-ui 的 VbenButton 组件 -->
+<script setup lang="ts">
+import { VbenButton } from '@vben/common-ui';
+</script>
+
+<template>
+  <VbenButton @click="handleReset">重置</VbenButton>
+  <VbenButton variant="primary" @click="handleSubmit">提交</VbenButton>
+</template>
+```
+
+### 错误3：组件命名不规范
 
 ```vue
 <!-- ❌ 错误：通用名称 -->
@@ -156,7 +180,7 @@ import UpdateProtocolModal from './UpdateProtocolModal.vue';
 </script>
 ```
 
-### 错误3：组件职责不清
+### 错误4：组件职责不清
 
 ```vue
 <!-- ❌ 错误：一个大组件包含所有功能 -->
@@ -236,6 +260,94 @@ import { z } from '#/adapter/form';
   rules: z.string()
     .min(2, '用户名至少2个字符')
     .max(20, '用户名最多20个字符'),
+}
+```
+
+## 字段插槽
+
+### suffix / prefix 插槽
+
+在 schema 字段中可以使用 `suffix` 和 `prefix` 属性添加自定义插槽内容，适用于添加按钮、图标等附加元素。
+
+```typescript
+import { h } from 'vue';
+import { VbenButton } from '@vben/common-ui';
+
+{
+  fieldName: 'manualTime',
+  label: '手动设置时间',
+  component: 'DatePicker',
+  suffix: () => h(VbenButton, { size: 'sm', onClick: handleApplyTime }, () => '应用时间'),
+  componentProps: {
+    showTime: true,
+    format: 'YYYY-MM-DD HH:mm',
+    placeholder: '请选择日期时间',
+  },
+}
+```
+
+### 自定义组件插槽
+
+对于 Input 等支持插槽的组件，可以通过 `suffix` 和 `prefix` 属性添加前后缀内容：
+
+```typescript
+{
+  component: 'Input',
+  fieldName: 'price',
+  label: '价格',
+  suffix: () => h('span', { class: 'text-gray-500' }, '元'),
+}
+```
+
+## DatePicker 最佳实践
+
+### 日期时间选择（精确到分钟）
+
+```typescript
+{
+  fieldName: 'scheduledTime',
+  label: '计划时间',
+  component: 'DatePicker',
+  help: '留空则使用NTP同步',
+  componentProps: {
+    showTime: true,
+    format: 'YYYY-MM-DD HH:mm',
+    placeholder: '请选择日期时间',
+    minuteStep: 1,  // 精确到每分钟
+  },
+}
+```
+
+### 带操作按钮的日期选择器
+
+```typescript
+import { h } from 'vue';
+import { VbenButton } from '@vben/common-ui';
+
+{
+  fieldName: 'manualTime',
+  label: '手动设置时间',
+  component: 'DatePicker',
+  suffix: () => h(VbenButton, { size: 'sm', onClick: handleApplyTime }, () => '应用时间'),
+  componentProps: {
+    showTime: true,
+    format: 'YYYY-MM-DD HH:mm',
+    placeholder: '请选择日期时间',
+  },
+}
+```
+
+### RangePicker 日期范围选择
+
+```typescript
+{
+  fieldName: 'dateRange',
+  label: '日期范围',
+  component: 'RangePicker',
+  componentProps: {
+    format: 'YYYY-MM-DD',
+    placeholder: ['开始日期', '结束日期'],
+  },
 }
 ```
 

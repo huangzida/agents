@@ -82,7 +82,7 @@ Vben Admin 使用 `.dark` 类选择器实现深色模式，**不是** `prefers-c
 |------|------|----------|----------|----------|
 | **成功** | `bg-success` | `bg-success-background-light` | `text-success-text` | `border-success` |
 | **警告** | `bg-warning` | `bg-warning-background-light` | `text-warning-text` | `border-warning` |
-| **危险** | `bg-destructive` | `bg-destructive-background-light` | `text-destructive-text` | `border-destructive` |
+| **危险** | `bg-danger` / `bg-destructive` / `bg-error` | `bg-danger-background-light` | `text-danger-text` | `border-danger` |
 
 ### 颜色别名
 
@@ -93,6 +93,10 @@ Vben Admin 使用 `.dark` 类选择器实现深色模式，**不是** `prefers-c
 | `green-*` | success | 表示成功/通过 |
 | `red-*` | destructive | 表示错误/删除 |
 | `yellow-*` | warning | 表示警告/待处理 |
+| `danger-*` | destructive | 表示危险/删除操作 |
+| `error-*` | destructive | 表示错误/失败状态 |
+
+> **注意**：`danger-*` 和 `error-*` 是 `destructive-*` 的别名，内部都指向相同的颜色变量。
 
 ```html
 <!-- 使用别名 -->
