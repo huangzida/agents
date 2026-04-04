@@ -9,7 +9,7 @@ description: Use when developing or maintaining vben-admin 5.0 projects, creatin
 
 ## ⚠️ 开发规范
 
-> **组件超过 500 行必须拆分！**
+> **组件超过 200 行或包含多个功能区块时必须拆分！**
 
 保持组件颗粒度细、易于维护和扩展：
 - 将大组件拆分为多个小组件
@@ -21,6 +21,9 @@ description: Use when developing or maintaining vben-admin 5.0 projects, creatin
 | 表单 + 弹窗 | 使用 `useVbenForm` + `useVbenModal` |
 | 复杂表单 | 按业务模块拆分为多个子表单 |
 | 编辑详情 | 基本信息 + 物模型 等模块拆分 |
+| 仪表板 | Header + 卡片组 + 图表 + 列表 等区块拆分 |
+
+> 💡 **详细指南：** [组件拆分最佳实践](references/guides/component-splitting.md)
 
 ## 快速导航
 
@@ -31,6 +34,7 @@ description: Use when developing or maintaining vben-admin 5.0 projects, creatin
 | [快速开始](references/guides/quick-start.md) | 环境准备、启动项目、创建页面 |
 | [项目结构](references/guides/project-structure.md) | Monorepo 结构、路径别名 |
 | [Playground 示例](references/guides/playground-index.md) | 表单、表格、弹窗示例索引 |
+| [组件拆分](references/guides/component-splitting.md) | 仪表板/卡片等组件拆分最佳实践 |
 
 ### 📦 核心组件
 
@@ -97,4 +101,5 @@ vben-admin-dev/
 │   ├── core/                   # 核心功能
 │   ├── features/               # 配置定制
 │   └── guides/                 # 开发指南
+│       └── component-splitting.md  # 组件拆分最佳实践
 ```
